@@ -1,8 +1,8 @@
 {
-  "name": "aws-yandex",
+  "name": "raspapi-wrapper",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "yandexapi.js",
   "scripts": {
     "test": "mocha",
     "testnyc": "nyc --reporter=text-summary mocha --timeout 5000",
