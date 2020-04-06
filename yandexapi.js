@@ -76,12 +76,12 @@ class YandexTrainsAPI {
             switch (config.yandex_hint_level) {
                 case hint_level.INCLUDES_STR:
                     if (station.toLowerCase().includes(unfinishedStationName)) {
-                        choices.push(station);
+                        choices.push(this.stationsMap[station]);
                     }
                     break;
                 case hint_level.STARTS_WITH:
                     if (station.toLowerCase().startsWith(unfinishedStationName)) {
-                        choices.push(station);
+                        choices.push(this.stationsMap[station]);
                     }
             }
 
