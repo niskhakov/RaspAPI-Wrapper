@@ -40,6 +40,11 @@ describe('YandexAPI', function() {
         assert.lengthOf(res, 2);
     })
 
+    it.only("get schedule of train between stations where path does not exist", async() => {
+        let res = await api.getSchedule("тимирязевская", "окружная, мцк")
+        console.log(res); // return res;
+    })
+
 
     it("(private) connect to yandex api", async() => {
         let res = await api.testYandexAPIConnection();
@@ -134,6 +139,7 @@ describe('YandexAPI', function() {
             throw new Error("Unexpected behavior: founded an nonexistent item in api")
 
     })
+
     it("(private) request nonexistent schedule (api)", async() => {
         const depObj = { id: "test123781934731209" };
         const destObj = { id: "test1237819347312090" };

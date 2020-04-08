@@ -126,7 +126,14 @@ class YandexTrainsAPI {
 
         const depObj = this.getStationObject(departure);
         const destObj = this.getStationObject(destination);
-        let schedule = await this.requestSchedule(depObj, destObj, extra);
+        let schedule;
+        try {
+            schedule = await this.requestSchedule(depObj, destObj, extra);
+        }
+        catch (err) {
+            console.debug("Path doesn't exist or " + err.message);
+            schedule = [];
+        }
 
         let nearestScheduleIdx = binarySearchPositiveMinIdx(schedule, scheduleItem => getTimeDifferenceFromNow(scheduleItem.departure));
 

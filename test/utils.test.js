@@ -69,4 +69,12 @@ describe('Utils', () => {
         assert.equal(arr[idx], 0.25);
     })
 
+    it("binary search of min positive returns -1 on empty array", () => {
+        let estimatorFunc = (item) => {
+            return item;
+        }
+        let idx = Utils.binarySearchPositiveMinIdx([], estimatorFunc);
+        assert.equal(idx, -1);
+    })
+
 })
