@@ -99,7 +99,7 @@ class YandexTrainsAPI {
     };
 
     /**
-     * @access protected
+     * @access public
      * @param {string} stationName - Station name (case insensitive)
      */
     getStationObject(stationName) {
@@ -128,7 +128,7 @@ class YandexTrainsAPI {
         const destObj = this.getStationObject(destination);
         let schedule = await this.requestSchedule(depObj, destObj, extra);
 
-        let nearestScheduleIdx = binarySearchPositiveMinIdx(schedule, scheduleItem => getTimeDifferenceFromNow(scheduleItem.arrival));
+        let nearestScheduleIdx = binarySearchPositiveMinIdx(schedule, scheduleItem => getTimeDifferenceFromNow(scheduleItem.departure));
 
         if (nearestScheduleIdx === -1) {
             return [];
