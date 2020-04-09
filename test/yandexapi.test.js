@@ -40,9 +40,16 @@ describe('YandexAPI', function() {
         assert.lengthOf(res, 2);
     })
 
-    it.only("get schedule of train between stations where path does not exist", async() => {
-        let res = await api.getSchedule("тимирязевская", "окружная, мцк")
-        console.log(res); // return res;
+    it("get schedule by id", async() => {
+        const depId = "s9601830";
+        const destId = "s9602463";
+        let res = await api.getScheduleByID(depId, destId);
+        assert.lengthOf(res, 1);
+    })
+
+    it("get schedule of train between stations where path does not exist", async() => {
+        let res = await api.getSchedule("тимирязевская", "окружная, мцк");
+        assert.lengthOf(res, 0)
     })
 
 

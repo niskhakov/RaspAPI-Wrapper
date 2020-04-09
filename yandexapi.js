@@ -55,14 +55,6 @@ class YandexTrainsAPI {
 
     /**
      * @access public
-     */
-    isStation(station) {
-        // bool
-        return false;
-    }
-
-    /**
-     * @access public
      * 
      * TODO: use more efficient structure for cached stations instead of array (use hashmap)
      */
@@ -118,20 +110,35 @@ class YandexTrainsAPI {
      * @param {string} [extra.date=Utils.defaultDate()] - specify date of schedule, by default current date specified in Utils.defaultDate()
      */
     async getSchedule(departure, destination, extra = {}) {
+        const depObj = this.getStationObject(departure);
+        const destObj = this.getStationObject(destination);
 
+        return await this.getScheduleByID(depObj.id, destObj.id, extra)
+    }
+
+    /**
+     * @access public
+     * 
+     * @param {string} departureId - Departure station id (in yandex database format: ex. s9600811)
+     * @param {string} destinationId - Destination station id (in yandex database format: ex. s9600811)
+     * @param {Object} [extra] - Extra parameters
+     * @param {string} [extra.schedule_items=1] - number of schedule items from now, may be less if number of trains is less for specified date
+     * @param {string} [extra.date=Utils.defaultDate()] - specify date of schedule, by default current date specified in Utils.defaultDate()
+     */
+    async getScheduleByID(departureId, destinationId, extra = {}) {
         extra = {
             schedule_items: 1,
             ...extra
         }
+        const depObj = { id: departureId }
+        const destObj = { id: destinationId }
 
-        const depObj = this.getStationObject(departure);
-        const destObj = this.getStationObject(destination);
         let schedule;
         try {
             schedule = await this.requestSchedule(depObj, destObj, extra);
         }
         catch (err) {
-            console.debug("Path doesn't exist or " + err.message);
+            // console.debug("Path doesn't exist or " + err.message);
             schedule = [];
         }
 
