@@ -102,6 +102,15 @@ class YandexTrainsAPI {
 
     /**
      * @access public
+     * @param {string} id - Station id (yandex format)
+     */
+    getStationObjectByID(id) {
+        if (!this.stationsMap) this.fetchCachedStations();
+        if (!id) return undefined;
+        return Object.values(this.stationsMap).find(item => item.id === id);
+    }
+    /**
+     * @access public
      * 
      * @param {string} departure - Departure station (case insensitive)
      * @param {string} destination - Destination station (case insensitive)

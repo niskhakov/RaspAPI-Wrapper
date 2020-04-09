@@ -52,6 +52,31 @@ describe('YandexAPI', function() {
         assert.lengthOf(res, 0)
     })
 
+    it("get station object by station name - ex. Timiryazevskaya", () => {
+        let stationObj = api.getStationObject("тимирязевская");
+        const expected = {
+            stationName: 'Тимирязевская',
+            direction: 'Савёловское',
+            id: 's9602463'
+        }
+        assert.deepEqual(stationObj, expected);
+    })
+
+    it("get station object by id - ex. Timiryazevskaya", () => {
+        let stationObj = api.getStationObjectByID('s9602463');
+        const expected = {
+            stationName: 'Тимирязевская',
+            direction: 'Савёловское',
+            id: 's9602463'
+        }
+        assert.deepEqual(stationObj, expected);
+    })
+
+    it("get station object by nonexistent id", () => {
+        let stationObj = api.getStationObjectByID('s27483247924782974239');
+        assert.notExists(stationObj);
+    })
+
 
     it("(private) connect to yandex api", async() => {
         let res = await api.testYandexAPIConnection();
@@ -64,16 +89,6 @@ describe('YandexAPI', function() {
         api.fetchCachedStations();
         let count = Object.keys(api.stationsMap).length;
         assert.ok(count > 100);
-    })
-
-    it("(private) get station object by station name - ex. Timiryazevskaya", () => {
-        let stationObj = api.getStationObject("тимирязевская");
-        const expected = {
-            stationName: 'Тимирязевская',
-            direction: 'Савёловское',
-            id: 's9602463'
-        }
-        assert.deepEqual(stationObj, expected);
     })
 
     it("(private) request schedule page from YandexAPI", async() => {
