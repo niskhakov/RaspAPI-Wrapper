@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.650.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "dotenv": "^8.2.0",
